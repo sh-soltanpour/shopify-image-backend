@@ -16,12 +16,10 @@ Schema.pre("save", function (next) {
     //hashing password
     bcrypt.genSalt(SALT_LEN, (err, salt) => {
         if (err) {
-            console.log(err);
             next(err);
         }
         bcrypt.hash(user.password, salt, (err, hash) => {
             if (err) {
-                console.log(err);
                 next(err);
             }
             user.password = hash;

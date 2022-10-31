@@ -6,16 +6,19 @@ const {generateAccessToken} = require("./token_generator"),
 const User = mongoose.model("User");
 const router = express.Router();
 
-router.post("/", function (req, res) {
-    User.findOne({email: req.body.email}, (err, user) => {
-        if (user && bcrypt.compareSync(req.body.password, user.password)) {
+router.post("/", async function (req, res) {
+    try {
+        const user = await User.findOne({email: req.body.email});
+        if (bcrypt.compareSync(req.body.password, user.password)) {
             return res.status(200).send({
                 access_token: generateAccessToken(user.email)
             });
         } else {
-            return res.status(401).send({message: "fail"});
+            throw new Error();
         }
-    });
+    } catch (e) {
+        return res.status(401).send({message: "Email or password is not correct"});
+    }
 });
 
 module.exports = router;
