@@ -1,7 +1,8 @@
 const express = require('express'),
     mongoose = require('mongoose'),
     router = express.Router(),
-    User = mongoose.model("User");
+    User = mongoose.model("User"),
+    {createAccessToken} = require("./token_generator");
 
 /* GET users listing. */
 router.post("/", function (req, res) {
@@ -14,7 +15,7 @@ router.post("/", function (req, res) {
         return res.status(400).send("invalid username or password");
     }
 
-    User.findOne({username: req.body.username}, (err, user) => {
+    User.findOne({email: req.body.email}, (err, user) => {
         if (user) {
             return res.status(400).send({message: "exists"});
         } else {
@@ -25,7 +26,7 @@ router.post("/", function (req, res) {
                 if (user) {
                     return res.status(201).send({
                         message: "ok",
-                        access_token: '1'//createAccessToken(user),
+                        access_token: createAccessToken(user),
                     });
                 } else console.error(err);
             });
