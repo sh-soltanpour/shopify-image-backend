@@ -1,4 +1,4 @@
-const {createAccessToken, generateAccessToken} = require("./token_generator"),
+const {generateAccessToken} = require("./token_generator"),
     bcrypt = require('bcrypt'),
     mongoose = require('mongoose'),
     express = require('express');
