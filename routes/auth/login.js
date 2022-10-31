@@ -10,7 +10,7 @@ router.post("/", function (req, res) {
     User.findOne({email: req.body.email}, (err, user) => {
         if (user && bcrypt.compareSync(req.body.password, user.password)) {
             return res.status(200).send({
-                access_token: generateAccessToken(user)
+                access_token: generateAccessToken(user.email)
             });
         } else {
             return res.status(401).send({message: "fail"});
