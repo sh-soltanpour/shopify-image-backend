@@ -6,7 +6,8 @@ const Schema = mongoose.Schema(
         title: {type: String, required: true},
         description: {type: String},
         date_created: {type: Date, required: true, default: Date.now()},
-        owner: {type: String, ref: "User", required: true}
+        owner: {type: String, ref: "User", required: true},
+        private: {type: Boolean, required: true, default: false}
     },
     {collection: "images"}
 );

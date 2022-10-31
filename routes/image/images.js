@@ -14,6 +14,7 @@ router.post("/", tokenVerifier, async function (req, res) {
                 description: req.body.description,
                 owner: user._id,
                 link: req.body.link,
+                private: req.body.private
             }
         ).save()
         return res.jsonp({
