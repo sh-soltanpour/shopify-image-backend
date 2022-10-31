@@ -1,8 +1,10 @@
 const express = require("express"),
     router = express.Router(),
-    images = require("./images");
+    images = require("./images"),
+    bulkImages = require("./bulk");
 
+
+router.use("/bulk", bulkImages);
 router.use("/", images);
-// router.use("/register", register);
 
 module.exports = router;
