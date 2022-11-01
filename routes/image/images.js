@@ -39,4 +39,17 @@ router.delete("/:id/", tokenVerifier, async function (req, res) {
     }
 });
 
+router.get("/:id/", tokenVerifier, async function (req, res) {
+    try {
+        const user = await User.findOne({"email": req.tokenData.email})
+        const image = await Image.findOne({
+            _id: req.params.id,
+            $or: [{"private": false}, {"owner": user._id}]
+        })
+        return res.status(200).jsonp(image);
+    } catch (e) {
+        return res.status(404).jsonp({"message": e.message})
+    }
+});
+
 module.exports = router;
