@@ -18,7 +18,7 @@ router.post("/", async function (req, res) {
     }).save();
 
     return res.status(201).send({
-        access_token: generateAccessToken(user),
+        accessToken: generateAccessToken(user),
     });
 });
 

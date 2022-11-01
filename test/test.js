@@ -32,7 +32,64 @@ afterEach(async () => {
     await mongoose.connection.db.dropCollection("images");
     await mongoose.connection.close();
 });
-describe("GET /api/images", () => {
+
+describe("Test Authentication", () => {
+    it("Register new user", async () => {
+        const reqBody = {
+            email: "shahryar2@gmail.com",
+            password: "12345678"
+        };
+        const res = await request(app)
+            .post("/auth/register")
+            .set("Authorization", "Bearer " + token)
+            .send(reqBody);
+
+        expect(res.statusCode).toBe(201);
+    });
+    it("Register existing user", async () => {
+        const reqBody = {
+            email: "test@gmail.com",
+            password: "12345678"
+        };
+        const res = await request(app)
+            .post("/auth/register")
+            .set("Authorization", "Bearer " + token)
+            .send(reqBody);
+
+        expect(res.statusCode).toBe(400);
+    });
+
+    it("Login and getting access token", async () => {
+        const reqBody = {
+            email: "test@gmail.com",
+            password: "test"
+        };
+        const res = await request(app)
+            .post("/auth/login")
+            .set("Authorization", "Bearer " + token)
+            .send(reqBody);
+
+        expect(res.statusCode).toBe(200);
+        expect(res.body).toBeDefined();
+        expect(res.body.accessToken).toBeDefined();
+    });
+
+    it("Login with wrong credentials", async () => {
+        const reqBody = {
+            email: "test@gmail.com",
+            password: "wrongPassword"
+        };
+        const res = await request(app)
+            .post("/auth/login")
+            .set("Authorization", "Bearer " + token)
+            .send(reqBody);
+
+        expect(res.statusCode).toBe(401);
+    });
+});
+
+
+describe("Test Images functionality", () => {
     it("Search for images", async () => {
         const res = await request(app).get("/images/search/Test").set("Authorization", "Bearer " + token);
         expect(res.statusCode).toBe(200);
