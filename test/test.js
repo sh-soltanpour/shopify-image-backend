@@ -151,4 +151,19 @@ describe("Test Images functionality", () => {
         expect(res.statusCode).toBe(200);
         expect(res.body.deletedCount).toBe(1);
     });
+    it("Get single image", async () => {
+        const res = await request(app)
+            .get("/images/" + image._id)
+            .set("Authorization", "Bearer " + token)
+        expect(res.statusCode).toBe(200);
+        expect(res.body._id).toBe(image._id.toString());
+    });
+
+    it("Delete all images of a user", async () => {
+        const res = await request(app)
+            .delete("/images/all")
+            .set("Authorization", "Bearer " + token)
+        expect(res.statusCode).toBe(200);
+        expect(res.body.deletedCount).toBe(1);
+    });
 });

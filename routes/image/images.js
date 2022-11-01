@@ -26,6 +26,17 @@ router.post("/", tokenVerifier, async function (req, res) {
 
 });
 
+router.delete("/all/", tokenVerifier, async function (req, res) {
+    try {
+        const user = await User.findOne({"email": req.tokenData.email})
+        const result = await Image.find({"owner": user._id}).remove();
+        return res.status(200).jsonp(result);
+    } catch (e) {
+        return res.status(404).jsonp({"message": e.message})
+    }
+});
+
+
 router.delete("/:id/", tokenVerifier, async function (req, res) {
     try {
         const user = await User.findOne({"email": req.tokenData.email})
