@@ -1,0 +1,19 @@
+version: '3'
+services:
+  node:
+    environment:
+      - TOKEN_SECRET=123
+    restart: on-failure
+    build: .
+    ports:
+      - 80:3000
+    volumes:
+      - ./:/code
+  mongo:
+    image: mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb:/data/db
+volumes:
+  mongodb:
