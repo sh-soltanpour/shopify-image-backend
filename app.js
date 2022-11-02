@@ -6,7 +6,9 @@ const express = require('express'),
 
 const app = express();
 const PORT = 3000;
-mongoose.connect("mongodb://localhost:27017/shopify")
+mongoose.connect("mongodb://mongo:27017/shopify", function (err) {
+    if (err) throw err;
+});
 
 require('./models/user');
 require('./models/image');
