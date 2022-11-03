@@ -81,8 +81,7 @@
 ## About The Project
 
 This project is done as my qualification task
-for code the change yyc application for
-Google Summer of Code 2022.
+for code the change yyc application.
 
 In this project, we have two models, User and Image, and I have implemented features such as register, login user and get, upload, delete, search single or bulk images. 
 
