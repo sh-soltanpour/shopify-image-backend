@@ -83,6 +83,7 @@
 This project is done as my qualification task
 for code the change yyc application.
 
+The project is up and running on [143.244.176.252:80](143.244.176.252:80).
 In this project, we have two models, User and Image, and I have implemented features such as register, login user and get, upload, delete, search single or bulk images. 
 
 
