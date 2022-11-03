@@ -1,0 +1,303 @@
+{
+	"info": {
+		"_postman_id": "42669728-1764-46cb-ae36-59daf927ea66",
+		"name": "New Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"Shahryar@gmail.com\",\n    \"password\": \"123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "143.244.176.252:80/auth/register",
+					"host": [
+						"143",
+						"244",
+						"176",
+						"252"
+					],
+					"port": "80",
+					"path": [
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"Shahryar@gmail.com\",\n    \"password\": \"123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "143.244.176.252:80/auth/login",
+					"host": [
+						"143",
+						"244",
+						"176",
+						"252"
+					],
+					"port": "80",
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List of images",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IlNoYWhyeWFyQGdtYWlsLmNvbSIsImlhdCI6MTY2NzQ0MjIzOCwiZXhwIjoxNjY3NDYwMjM4fQ.1HXoAffLcHCrE1mcoPiIU5IRzcUa0ns5wYSnfxvNVOc",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"123\",\n    \"link\": \"link\",\n    \"description\": \"desc\",\n    \"private\": \"false\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "143.244.176.252:80/images",
+					"host": [
+						"143",
+						"244",
+						"176",
+						"252"
+					],
+					"port": "80",
+					"path": [
+						"images"
+					],
+					"query": [
+						{
+							"key": "authorization",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete all user images",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IlNoYWhyeWFyQGdtYWlsLmNvbSIsImlhdCI6MTY2NzMzODM3NiwiZXhwIjoxNjY3MzU2Mzc2fQ.wponQxsVN0nq5U4a3YrN6Lxf32ZtNi4WUZsS5sG5iQQ",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "143.244.176.252:80/images/all",
+					"host": [
+						"143",
+						"244",
+						"176",
+						"252"
+					],
+					"port": "80",
+					"path": [
+						"images",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete bulk images",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IlNoYWhyeWFyQGdtYWlsLmNvbSIsImlhdCI6MTY2NzI1MDEzNywiZXhwIjoxNjY3MjY4MTM3fQ.FmX9RsNwf-paI-MIIDh6MEzTnJmyAC5jyie3oxFrRE4",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"images\": [\n        {\n            \"id\": \"635f6fdd11b2d4fe02932ca4\"\n        },\n        {\n            \"id\": \"635f7305e4f0e4a25f8518e9\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "143.244.176.252:80/images/bulk",
+					"host": [
+						"143",
+						"244",
+						"176",
+						"252"
+					],
+					"port": "80",
+					"path": [
+						"images",
+						"bulk"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Upload bulk images",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IlNoYWhyeWFyQGdtYWlsLmNvbSIsImlhdCI6MTY2NzI1MDEzNywiZXhwIjoxNjY3MjY4MTM3fQ.FmX9RsNwf-paI-MIIDh6MEzTnJmyAC5jyie3oxFrRE4",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"images\": [\n        {\n            \"title\": \"123\",\n            \"link\": \"right now\",\n            \"description\": \"desc\",\n            \"private\": \"false\"\n        },\n        {\n            \"title\": \"123\",\n            \"link\": \"right now\",\n            \"description\": \"desc\",\n            \"private\": \"true\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "143.244.176.252:80/images/bulk",
+					"host": [
+						"143",
+						"244",
+						"176",
+						"252"
+					],
+					"port": "80",
+					"path": [
+						"images",
+						"bulk"
+					],
+					"query": [
+						{
+							"key": "authorization",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search image",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IlNoYWhyeWFyQGdtYWlsLmNvbSIsImlhdCI6MTY2NzQ0MjIzOCwiZXhwIjoxNjY3NDYwMjM4fQ.1HXoAffLcHCrE1mcoPiIU5IRzcUa0ns5wYSnfxvNVOc",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "143.244.176.252:80/images/search/123",
+					"host": [
+						"143",
+						"244",
+						"176",
+						"252"
+					],
+					"port": "80",
+					"path": [
+						"images",
+						"search",
+						"123"
+					],
+					"query": [
+						{
+							"key": "authorization",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get single image",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IlNoYWhyeWFyQGdtYWlsLmNvbSIsImlhdCI6MTY2NzQ0MjIzOCwiZXhwIjoxNjY3NDYwMjM4fQ.1HXoAffLcHCrE1mcoPiIU5IRzcUa0ns5wYSnfxvNVOc",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "143.244.176.252:80/images/636326d0687b7bbfba985c9d",
+					"host": [
+						"143",
+						"244",
+						"176",
+						"252"
+					],
+					"port": "80",
+					"path": [
+						"images",
+						"636326d0687b7bbfba985c9d"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

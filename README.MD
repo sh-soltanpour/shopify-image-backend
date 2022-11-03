@@ -84,6 +84,8 @@ This project is done as my qualification task
 for code the change yyc application.
 
 The project is up and running on [143.244.176.252:80](143.244.176.252:80).
+You can take a look at the [postman sample](./image.postman_collection.json) to know how the requests should be.
+
 In this project, we have two models, User and Image, and I have implemented features such as register, login user and get, upload, delete, search single or bulk images. 
 
 
