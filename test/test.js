@@ -1,15 +1,17 @@
-const request = require("supertest");
-const app = require("../app");
 const mongoose = require("mongoose");
-const User = require("../models/user");
+const supertest = require("supertest");
+const appServer = require("../app");
+const User = require("../models/user")
+const Image = require("../models/image")
 const {generateAccessToken} = require("../routes/auth/token_generator");
-const Image = require("../models/image");
+
+const request = supertest.agent("http://localhost:3000")
 
 let user;
 let token;
 let image;
 
-/* Connecting to the database before each test. */
+
 beforeEach(async () => {
     await mongoose.connection.close();
     await mongoose.connect("mongodb://localhost:27017/test_db");
@@ -28,16 +30,75 @@ beforeEach(async () => {
     }).save()
 });
 
-/* Closing database connection after each test. */
 afterEach(async () => {
     await mongoose.connection.db.dropCollection("users");
     await mongoose.connection.db.dropCollection("images");
     await mongoose.connection.close();
 });
 
+afterAll((done) => {
+    appServer.close();
+    done();
+});
+
+describe("Test Authentication", () => {
+    it("Register new user", async () => {
+        const reqBody = {
+            email: "shahryar2@gmail.com",
+            password: "12345678"
+        };
+        const res = await request
+            .post("/auth/register")
+            .set("Authorization", "Bearer " + token)
+            .send(reqBody);
+
+        expect(res.statusCode).toBe(201);
+    });
+    it("Register existing user", async () => {
+        const reqBody = {
+            email: "test@gmail.com",
+            password: "12345678"
+        };
+        const res = await request
+            .post("/auth/register")
+            .set("Authorization", "Bearer " + token)
+            .send(reqBody);
+
+        expect(res.statusCode).toBe(400);
+    });
+
+    it("Login and getting access token", async () => {
+        const reqBody = {
+            email: "test@gmail.com",
+            password: "test"
+        };
+        const res = await request
+            .post("/auth/login")
+            .set("Authorization", "Bearer " + token)
+            .send(reqBody);
+
+        expect(res.statusCode).toBe(200);
+        expect(res.body).toBeDefined();
+        expect(res.body.accessToken).toBeDefined();
+    });
+
+    it("Login with wrong credentials", async () => {
+        const reqBody = {
+            email: "test@gmail.com",
+            password: "wrongPassword"
+        };
+        const res = await request
+            .post("/auth/login")
+            .set("Authorization", "Bearer " + token)
+            .send(reqBody);
+
+        expect(res.statusCode).toBe(401);
+    });
+});
+
 describe("Test Images functionality", () => {
     it("Search for images", async () => {
-        const res = await request(app).get("/images/search/Test").set("Authorization", "Bearer " + token);
+        const res = await request.get("/images/search/Test").set("Authorization", "Bearer " + token);
         expect(res.statusCode).toBe(200);
         expect(res.body.images).toBeDefined()
         expect(res.body.images.length).toBeGreaterThan(0);
@@ -49,7 +110,7 @@ describe("Test Images functionality", () => {
             'description': 'desc',
             'title': 'image title'
         }
-        const res = await request(app)
+        const res = await request
             .post("/images/")
             .set("Authorization", "Bearer " + token)
             .send(reqBody);
@@ -61,7 +122,7 @@ describe("Test Images functionality", () => {
         const reqBody = {
             'id': image._id
         }
-        const res = await request(app)
+        const res = await request
             .delete("/images/" + image._id)
             .set("Authorization", "Bearer " + token);
         expect(res.statusCode).toBe(200);
@@ -74,7 +135,7 @@ describe("Test Images functionality", () => {
             'title': 'image title'
         }
         const reqBody = {images: [image_body, image_body, image_body]}
-        const res = await request(app)
+        const res = await request
             .post("/images/bulk")
             .set("Authorization", "Bearer " + token)
             .send(reqBody);
@@ -89,7 +150,7 @@ describe("Test Images functionality", () => {
                 {'id': image._id}
             ]
         }
-        const res = await request(app)
+        const res = await request
             .delete("/images/bulk")
             .set("Authorization", "Bearer " + token)
             .send(reqBody);
@@ -97,7 +158,7 @@ describe("Test Images functionality", () => {
         expect(res.body.deletedCount).toBe(1);
     });
     it("Get single image", async () => {
-        const res = await request(app)
+        const res = await request
             .get("/images/" + image._id)
             .set("Authorization", "Bearer " + token)
         expect(res.statusCode).toBe(200);
@@ -105,7 +166,7 @@ describe("Test Images functionality", () => {
     });
 
     it("Delete all images of a user", async () => {
-        const res = await request(app)
+        const res = await request
             .delete("/images/all")
             .set("Authorization", "Bearer " + token)
         expect(res.statusCode).toBe(200);
