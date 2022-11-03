@@ -3,6 +3,7 @@ services:
   node:
     environment:
       - TOKEN_SECRET=123
+      - MONGO_HOST=mongo
     restart: on-failure
     build: .
     ports:
